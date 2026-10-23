@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institucional - IES N°11</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ies-dark': '#0f172a',
+                        'ies-navy': '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-ies-dark text-gray-100 flex flex-col min-h-screen font-sans">
+
+    <!-- HEADER INSTITUCIONAL -->
+    <header class="bg-gradient-to-r from-[#0a1128] via-[#1e293b] to-[#0f172a] shadow-xl border-b border-blue-900/40 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <div class="flex items-center space-x-4">
+                <div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-400 p-[2px] shadow-lg flex items-center justify-center">
+                    <div class="w-full h-full bg-[#111827] rounded-full flex flex-col items-center justify-center text-center p-1">
+                        <span class="text-[10px] font-extrabold tracking-tighter text-white leading-none">IES</span>
+                        <span class="text-[10px] font-bold text-cyan-300 leading-none">11</span>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider text-white">IES N° 11</h1>
+                    <p class="text-xs text-cyan-400 tracking-widest uppercase">Jujuy - Argentina</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="{% url 'inicio' %}" class="text-gray-300 hover:text-cyan-300 transition">Inicio</a>
+                <a href="{% url 'institucional' %}" class="text-cyan-300 hover:text-white transition">Institucional</a>
+                <a href="{% url 'carreras' %}" class="text-gray-300 hover:text-cyan-300 transition">Carreras</a>
+            </nav>
+
+            <a href="/admin/" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full font-semibold text-sm shadow-md transition border border-blue-400/30">Ingresar</a>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl">
+        <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-2xl shadow-xl p-8 border border-blue-900/40">
+            <h2 class="text-3xl font-extrabold text-cyan-400 mb-6 border-b border-slate-700 pb-4">Institucional - IES N°11</h2>
+            
+            <div class="space-y-6 text-gray-300 leading-relaxed">
+                <p>
+                    El <strong class="text-white">Instituto de Educación Superior N°11</strong> de la Provincia de Jujuy es una institución pública referente en la formación superior, orientada a brindar carreras técnicas y docentes de calidad adaptadas a las demandas del mundo laboral actual y digital.
+                </p>
+                
+                <h3 class="text-xl font-bold text-white mt-6 mb-2">Nuestra Misión</h3>
+                <p>
+                    Garantizar una educación pública inclusiva, democrática y de excelencia, fomentando el pensamiento crítico, la innovación tecnológica y el compromiso con la comunidad jujeña.
+                </p>
+
+                <h3 class="text-xl font-bold text-white mt-6 mb-2">Compromiso Tecnológico</h3>
+                <p>
+                    A través de este portal académico moderno y autgestionado, buscamos optimizar los trámites institucionales, asegurar la transparencia en los procesos de inscripción y ofrecer una plataforma robusta 24/7 para toda nuestra comunidad educativa.
+                </p>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-slate-700">
+                <a href="{% url 'inicio' %}" class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition shadow">
+                    &larr; Volver a la Página Principal
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#090d16] text-gray-400 py-8 border-t border-slate-800 text-center">
+        <p class="text-xs text-gray-500">© 2026 IES N°11 - San Salvador de Jujuy - Argentina</p>
+    </footer>
+
+</body>
+</html>
