@@ -61,3 +61,12 @@ class RegistroVisita(models.Model):
     ip_usuario = models.CharField(max_length=50, null=True, blank=True)
     carrera_vista = models.ForeignKey(Carrera, on_delete=models.SET_NULL, null=True, blank=True)
     dispositivo = models.CharField(max_length=100, null=True, blank=True)
+
+# 4. Modelo de Publicación
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=255)
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo
