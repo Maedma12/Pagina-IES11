@@ -5,14 +5,14 @@ from google.genai import types
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from .models import Carrera
-
+from .models import Carrera, Publicacion, PedidoCertificado
 
 class CustomLoginView(LoginView):
     template_name = 'nucleo/login.html'
 
 def inicio(request):
-    return render(request, 'nucleo/index.html')
+    publicaciones = Publicacion.objects.all()
+    return render(request, 'nucleo/index.html', {'publicaciones': publicaciones})
 
 def institucional(request):
     return render(request, 'nucleo/institucional.html')
@@ -129,3 +129,18 @@ def guardar_confirmado(request):
                 
         return redirect('gestion')
     return redirect('gestion')
+
+@login_required
+def pedir_certificado(request):
+    if request.method == 'POST':
+        carrera_id = request.POST.get('carrera')
+        carrera = Carrera.objects.get(id=carrera_id)
+        PedidoCertificado.objects.create(alumno=request.user, carrera=carrera)
+        return redirect('gestion')
+    carreras = Carrera.objects.all()
+    return render(request, 'nucleo/pedir_certificado.html', {'carreras': carreras})
+
+@login_required
+def gestion_certificados(request):
+    pedidos = PedidoCertificado.objects.all()
+    return render(request, 'nucleo/gestion_certificados.html', {'pedidos': pedidos})
