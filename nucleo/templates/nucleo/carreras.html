@@ -28,7 +28,12 @@
                     <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300">
                         
                         <div>
-                            <h4 class="text-lg md:text-xl font-bold text-cyan-300 mb-2">{{ c.nombre }}</h4>
+                            <!-- CAMBIO 1: Título clickeable que navega en la misma pestaña -->
+                            <a href="{% url 'detalle_carrera' c.id %}" class="group">
+                                <h4 class="text-lg md:text-xl font-bold text-cyan-300 mb-2 group-hover:text-cyan-100 group-hover:underline transition-all duration-300">
+                                    {{ c.nombre }}
+                                </h4>
+                            </a>
                             <p class="text-sm text-gray-400 mb-4 line-clamp-3">{{ c.descripcion }}</p>
                             
                             <div class="flex flex-wrap gap-2 mb-4">
@@ -37,14 +42,15 @@
                             </div>
                         </div>
                         
-                        <div class="pt-4 border-t border-slate-800 mt-2">
+                        <!-- CAMBIO 2: Contenedor flex solo para el botón del PDF -->
+                        <div class="pt-4 border-t border-slate-800 mt-2 flex flex-wrap gap-3">
                             {% if c.archivo_pdf %}
                                 <a href="{{ c.archivo_pdf.url }}" target="_blank" class="inline-flex items-center space-x-2 text-sm bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-bold transition shadow-lg w-fit">
-                                    <span>📄</span> <span>Ver Plan de Estudios (PDF)</span>
+                                    <span>📄</span> <span>Plan de Estudios</span>
                                 </a>
                             {% else %}
-                                <span class="text-xs text-gray-500 italic inline-flex items-center space-x-1">
-                                    <span>⚠️</span> <span>Plan de estudios (PDF) en trámite</span>
+                                <span class="text-xs text-gray-500 italic inline-flex items-center space-x-1 mt-2">
+                                    <span>⚠️</span> <span>PDF en trámite</span>
                                 </span>
                             {% endif %}
                         </div>

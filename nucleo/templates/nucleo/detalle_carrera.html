@@ -1,0 +1,20 @@
+{% extends 'nucleo/base.html' %}
+{% load static %}
+
+{% block title %}{{ carrera.nombre }} - IES N°11{% endblock %}
+
+{% block content %}
+<div class="bg-ies-navy p-8 rounded-xl shadow-lg border border-blue-900/30">
+    <h1 class="text-3xl font-bold text-cyan-300 mb-4">{{ carrera.nombre }}</h1>
+    
+    <div class="text-gray-300 space-y-4">
+        <p><strong>Duración:</strong> {{ carrera.duracion }} años</p>
+        <p><strong>Resolución:</strong> {{ carrera.resolucion }}</p>
+        
+        <h3 class="text-xl font-semibold text-white mt-6">Descripción de la carrera</h3>
+        <p>{{ carrera.descripcion }}</p>
+        
+        <!-- Agrega aquí más campos que tengas en tu modelo (perfil del egresado, materias, etc.) -->
+    </div>
+</div>
+{% endblock %}

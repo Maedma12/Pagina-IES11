@@ -12,7 +12,6 @@ from django.core.files.base import ContentFile
 from django.core.files import File
 from .models import Carrera
 
-
 class CustomLoginView(LoginView):
     template_name = 'nucleo/login.html'
     
@@ -35,6 +34,11 @@ def carreras(request):
         'carreras': carreras_list,
     }
     return render(request, 'nucleo/carreras.html', context)
+
+# NUEVA VISTA: Genera la página dinámica para cada carrera individual
+def detalle_carrera(request, carrera_id):
+    carrera = get_object_or_404(Carrera, id=carrera_id)
+    return render(request, 'nucleo/detalle_carrera.html', {'carrera': carrera})
 
 @login_required
 def alumno_dashboard(request):
