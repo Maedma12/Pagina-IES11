@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IES N°11{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ies-dark': '#0f172a',
+                        'ies-navy': '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-ies-dark text-gray-100 flex flex-col min-h-screen font-sans">
+
+    <!-- HEADER INSTITUCIONAL / GESTIÓN COMPARTIDO -->
+    <header class="bg-gradient-to-r from-[#0a1128] via-[#1e293b] to-[#0f172a] shadow-xl border-b border-blue-900/40 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            
+            <!-- LOGO SVG DESDE CARPETA STATIC CON ENLACE AL INICIO -->
+            <a href="{% url 'inicio' %}" class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-12 h-12 flex items-center justify-center transition transform group-hover:scale-105">
+                    <img src="{% static 'nucleo/img/Logo_Ies11.svg' %}" alt="Logo IES 11" class="w-12 h-12 object-contain drop-shadow-md">
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider text-white group-hover:text-cyan-300 transition">IES N°11</h1>
+                    <p class="text-xs text-cyan-400 tracking-widest uppercase">Portal Académico</p>
+                </div>
+            </a>
+
+            <!-- NAVEGACIÓN -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium items-center">
+                <a href="{% url 'inicio' %}" class="text-gray-300 hover:text-cyan-300 transition">Inicio</a>
+                <a href="{% url 'institucional' %}" class="text-gray-300 hover:text-cyan-300 transition">Institucional</a>
+                <a href="{% url 'carreras' %}" class="text-gray-300 hover:text-cyan-300 transition">Carreras</a>
+                
+                <!-- LÓGICA DE USUARIOS -->
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <!-- Visible solo para Administradores -->
+                        <a href="{% url 'gestion' %}" class="text-amber-400 hover:text-amber-300 transition font-bold border-b-2 border-amber-400 pb-1">Gestión</a>
+                    {% else %}
+                        <!-- Visible solo para Alumnos (usuarios normales) -->
+                        <a href="{% url 'alumno' %}" class="text-emerald-400 hover:text-emerald-300 transition font-bold border-b-2 border-emerald-400 pb-1">Mi Panel</a>
+                    {% endif %}
+                {% endif %}
+            </nav>
+
+            <!-- ACCIONES DE USUARIO -->
+            <div class="flex items-center space-x-3">
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-full font-semibold text-xs shadow-md transition border border-red-400/30">Salir</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-xs shadow-md transition">Ingresar</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO DINÁMICO DE CADA PLANTILLA -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER INSTITUCIONAL COMPARTIDO -->
+    <footer class="bg-[#090d16] text-gray-400 py-10 mt-16 border-t border-slate-800">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h4 class="font-bold text-white text-base mb-3">Contacto Institucional</h4>
+                <p class="text-sm">📞 Tel: 3886014588</p>
+                <p class="text-sm">📍 San Salvador de Jujuy - Argentina</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-base mb-3">Redes Oficiales</h4>
+                <div class="flex flex-col space-y-2 text-sm">
+                    <p class="text-gray-400">Facebook</p>
+                    <p class="text-gray-400">Instagram</p>
+                    <p class="text-gray-400">YouTube</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-base mb-3">Marco Legal</h4>
+                <span class="text-sm text-gray-400 block">Términos y Condiciones</span>
+                <p class="text-xs text-gray-600 mt-4">© 2026 IES N°11 - Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -33,7 +33,11 @@ class Carrera(models.Model):
     nombre = models.CharField(max_length=150)
     duracion = models.CharField(max_length=50, default='3 años')
     resolucion = models.CharField(max_length=100, default='S/N')
-    # Nuevo campo para adjuntar el PDF del plan de estudios/resolución
+    
+    # NUEVO CAMPO: Para agrupar las carreras en la vista (Ej: Salud, Tecnología)
+    area = models.CharField(max_length=100, default='General', help_text='Ej: Salud, Tecnología, Humanidades')
+    
+    # Campo para adjuntar el PDF del plan de estudios/resolución
     archivo_pdf = models.FileField(upload_to='carreras_pdf/', blank=True, null=True)
     descripcion = models.TextField(blank=True, null=True)
 
@@ -61,12 +65,3 @@ class RegistroVisita(models.Model):
     ip_usuario = models.CharField(max_length=50, null=True, blank=True)
     carrera_vista = models.ForeignKey(Carrera, on_delete=models.SET_NULL, null=True, blank=True)
     dispositivo = models.CharField(max_length=100, null=True, blank=True)
-
-# 4. Modelo de Publicación
-class Publicacion(models.Model):
-    titulo = models.CharField(max_length=255)
-    contenido = models.TextField()
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.titulo
