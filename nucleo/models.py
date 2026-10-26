@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# 1. Sistema de Roles y Usuarios (Con related_name corregido)
+# 1. Sistema de Roles y Usuarios
 class Usuario(AbstractUser):
     ROLES = (
         ('publico', 'Público'),
@@ -11,7 +11,9 @@ class Usuario(AbstractUser):
     )
     rol = models.CharField(max_length=20, choices=ROLES, default='publico')
     dni = models.CharField(max_length=20, unique=True, null=True, blank=True)
-
+    nombre = models.CharField(max_length=100, blank=True, null=True, verbose_name="Nombre")
+    apellido = models.CharField(max_length=100, blank=True, null=True, verbose_name="Apellido")
+    
     # Solución al conflicto de campos con Django Auth
     groups = models.ManyToManyField(
         'auth.Group',
@@ -34,7 +36,7 @@ class Carrera(models.Model):
     duracion = models.CharField(max_length=50, default='3 años')
     resolucion = models.CharField(max_length=100, default='S/N')
     
-    # NUEVO CAMPO: Para agrupar las carreras en la vista (Ej: Salud, Tecnología)
+    # Campo para agrupar las carreras en la vista (Ej: Salud, Tecnología)
     area = models.CharField(max_length=100, default='General', help_text='Ej: Salud, Tecnología, Humanidades')
     
     # Campo para adjuntar el PDF del plan de estudios/resolución
@@ -59,7 +61,17 @@ class Calificacion(models.Model):
     condicion = models.CharField(max_length=20, null=True, blank=True)
     fecha_evaluacion = models.DateField(null=True, blank=True)
 
-# 3. Módulo de Telemetría (Para Ciencia de Datos)
+# 3. Módulo de Publicaciones / Novedades Institucionales (Para el Index y Panel Admin)
+class Publicacion(models.Model):
+    titulo = models.CharField(max_length=200, verbose_name="Título")
+    imagen = models.ImageField(upload_to='publicaciones/', blank=True, null=True, verbose_name="Imagen")
+    contenido = models.TextField(verbose_name="Contenido")
+    fecha_creacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
+
+    def __str__(self):
+        return self.titulo
+
+# 4. Módulo de Telemetría (Para Ciencia de Datos)
 class RegistroVisita(models.Model):
     fecha_hora = models.DateTimeField(auto_now_add=True)
     ip_usuario = models.CharField(max_length=50, null=True, blank=True)

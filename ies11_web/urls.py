@@ -19,9 +19,14 @@ urlpatterns = [
     path('gestion/guardar-confirmado/', views.guardar_confirmado, name='guardar_confirmado'),
     path('carrera/editar/<int:carrera_id>/', views.editar_carrera, name='editar_carrera'),
     path('carrera/eliminar/<int:carrera_id>/', views.eliminar_carrera, name='eliminar_carrera'),
+    
+    # Nuevas rutas añadidas para las solapas de publicaciones y alumnos
+    path('gestion/publicacion/eliminar/<int:pub_id>/', views.eliminar_publicacion, name='eliminar_publicacion'),
+    path('gestion/alumno/baja/<int:user_id>/', views.baja_alumno, name='baja_alumno'),
+    
     path('accounts/profile/', lambda request: redirect('/admin/')),
 ]
 
-# Esto permite que Django sirva los PDFs subidos mientras está activo el modo DEBUG
+# Esto permite que Django sirva los archivos multimedia y PDFs subidos mientras está activo el modo DEBUG
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

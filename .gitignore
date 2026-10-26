@@ -1,2 +1,13 @@
-.aider*
 .env
+
+# Ignorar archivos subidos por usuarios y temporales
+media/
+temp_uploads/
+
+# Ignorar base de datos local
+db.sqlite3
+
+# Ignorar caché de Python
+__pycache__/
+*/__pycache__/
+*.pyc

@@ -15,7 +15,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Ahora lee la clave desde el entorno, o usa la de desarrollo por defecto si no existe.
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-bey5aa=)u6h8c4!a(^#zo4k#v3zz3mx!40$n1i$_lydry$$%tp')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -34,6 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Librería de integración con S3 (Supabase)
+    'storages',
+    
+    # Tus aplicaciones
     'nucleo'
 ]
 
@@ -115,14 +119,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+# Email settings para el envío de credenciales automáticas
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'soporte@ies11.edu.ar'
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
 
 AUTH_USER_MODEL = 'nucleo.Usuario'
 
@@ -130,6 +130,32 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/gestion/'
 
 
-# Media files (PDFs de los planes de estudio y documentos de carreras)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# ==========================================
+# CONFIGURACIÓN DE SUPABASE STORAGE (S3)
+# ==========================================
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', 'carreras_pdf')
+
+# Endpoint técnico para que Django SUBA los archivos por S3
+AWS_S3_ENDPOINT_URL = 'https://sxtiovafqqcspjzwcfer.storage.supabase.co/storage/v1/s3'
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-east-1')
+
+# Dominio personalizado para forzar URLs públicas limpias de lectura
+AWS_S3_CUSTOM_DOMAIN = 'sxtiovafqqcspjzwcfer.storage.supabase.co/storage/v1/object/public/carreras_pdf'
+
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
