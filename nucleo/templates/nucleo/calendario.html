@@ -1,0 +1,139 @@
+{% extends 'nucleo/base.html' %}
+{% load static %}
+
+{% block title %}Calendario Académico - IES N°11{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- CABECERA INSTITUCIONAL CON GRADIENTE -->
+    <div class="bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-600 rounded-3xl p-6 sm:p-10 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 text-center md:text-left">
+            <span class="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-semibold backdrop-blur-md text-cyan-200">
+                Información Oficial Institucional
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">Calendario Académico 2026</h1>
+            <p class="text-sm sm:text-base text-cyan-100 max-w-2xl">
+                Cronograma completo de fechas clave, períodos de inscripción, inicio y finalización de cuatrimestres, recesos académicos y mesas de examen.
+            </p>
+        </div>
+        <div class="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20 shrink-0">
+            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- FILTROS POR CATEGORÍA Y CONTADOR -->
+    <div class="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-lg flex flex-wrap items-center justify-between gap-4">
+        
+        <!-- Botones de Filtro -->
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="{% url 'calendario' %}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if not categoria_selected %}bg-blue-600 text-white shadow-md shadow-blue-600/30{% else %}bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-slate-700{% endif %}">
+                Todos
+            </a>
+            <a href="?categoria=Inscripciones" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if categoria_selected == 'Inscripciones' %}bg-lime-600 text-white shadow-md shadow-lime-600/30{% else %}bg-lime-50 dark:bg-lime-950/50 text-lime-800 dark:text-lime-300 hover:bg-lime-100{% endif %}">
+                Inscripciones
+            </a>
+            <a href="?categoria=Inicio" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if categoria_selected == 'Inicio' %}bg-emerald-600 text-white shadow-md shadow-emerald-600/30{% else %}bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100{% endif %}">
+                Inicio de Clases
+            </a>
+            <a href="?categoria=Cierre" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if categoria_selected == 'Cierre' %}bg-cyan-600 text-white shadow-md shadow-cyan-600/30{% else %}bg-cyan-50 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-300 hover:bg-cyan-100{% endif %}">
+                Cierres y Planillas
+            </a>
+            <a href="?categoria=Receso" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if categoria_selected == 'Receso' %}bg-amber-600 text-white shadow-md shadow-amber-600/30{% else %}bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 hover:bg-amber-100{% endif %}">
+                Receso
+            </a>
+            <a href="?categoria=Finalización" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {% if categoria_selected == 'Finalización' %}bg-purple-600 text-white shadow-md shadow-purple-600/30{% else %}bg-purple-50 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 hover:bg-purple-100{% endif %}">
+                Finalización
+            </a>
+        </div>
+
+        <span class="text-xs text-slate-500 dark:text-gray-400 font-semibold">
+            Total registrados: <strong>{{ eventos|length }}</strong>
+        </span>
+    </div>
+
+    <!-- LISTADO COMPLETO DE EVENTOS DEL CALENDARIO -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for ev in eventos %}
+        <div class="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-md hover:shadow-xl transition duration-300 flex items-start gap-4 group">
+            
+            <!-- Badge Visual Estilo Almanaque (Fondo blanco fijo en ambos modos) -->
+            <div class="min-w-[4.75rem] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 bg-white shrink-0 shadow-sm group-hover:scale-105 transition-transform text-center flex flex-col">
+                <div class="bg-[#162d6b] text-white text-[10px] font-black uppercase tracking-wider py-1 px-2">
+                    {{ ev.fecha_inicio|date:"M" }}
+                </div>
+                <div class="py-2 px-2 flex flex-col items-center justify-center bg-white">
+                    {% if ev.fecha_fin %}
+                        <span class="text-xs font-black text-slate-900 leading-tight">
+                            {{ ev.fecha_inicio|date:"d" }} al {{ ev.fecha_fin|date:"d" }}
+                        </span>
+                    {% else %}
+                        <span class="text-xl font-black text-slate-900 leading-none">
+                            {{ ev.fecha_inicio|date:"d" }}
+                        </span>
+                    {% endif %}
+                    <span class="text-[9px] font-bold text-slate-500 leading-none mt-1">
+                        {{ ev.fecha_inicio|date:"Y" }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Información Detallada del Evento -->
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                    {% if ev.categoria == 'Inscripciones' %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-lime-100 text-lime-800 dark:bg-lime-950 dark:text-lime-300">Inscripciones</span>
+                    {% elif ev.categoria == 'Inicio' %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">Inicio</span>
+                    {% elif ev.categoria == 'Cierre' %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">Cierre</span>
+                    {% elif ev.categoria == 'Receso' %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">Receso</span>
+                    {% elif ev.categoria == 'Finalización' %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">Finalización</span>
+                    {% else %}
+                        <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200">General</span>
+                    {% endif %}
+
+                    <span class="text-[10px] text-slate-400 dark:text-gray-500 font-medium">
+                        {{ ev.fecha_inicio|date:"l"|title }}
+                    </span>
+                </div>
+
+                <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug">
+                    {{ ev.titulo }}
+                </h3>
+
+                {% if ev.descripcion %}
+                <p class="text-xs text-slate-600 dark:text-gray-300 mt-1 leading-relaxed">
+                    {{ ev.descripcion }}
+                </p>
+                {% endif %}
+            </div>
+
+        </div>
+        {% empty %}
+        <div class="col-span-full bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-2xl py-16 text-center shadow">
+            <svg class="w-12 h-12 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="text-sm font-semibold text-slate-600 dark:text-gray-300">No hay eventos registrados en esta categoría.</p>
+            <p class="text-xs text-slate-400 dark:text-gray-500 mt-1">Los eventos cargados desde el panel de gestión aparecerán aquí automáticamente.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- NOTA ACLARATORIA AL PIE -->
+    <div class="bg-blue-50/80 dark:bg-slate-900/60 border border-blue-200/80 dark:border-slate-800 rounded-2xl p-4 flex items-center gap-3 text-xs text-slate-600 dark:text-gray-300">
+        <svg class="w-5 h-5 text-blue-600 dark:text-cyan-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+        </svg>
+        <span>
+            <strong>Aviso oficial:</strong> Las fechas del Calendario Académico están sujetas a modificaciones mediante resoluciones institucionales del Consejo Directivo o del Ministerio de Educación de la Provincia de Jujuy.
+        </span>
+    </div>
+
+</div>
+{% endblock %}

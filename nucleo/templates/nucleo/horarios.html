@@ -1,0 +1,124 @@
+{% extends 'nucleo/base.html' %}
+{% load static %}
+
+{% block title %}Horarios de Cursado - IES N°11{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+
+    <!-- ENCABEZADO -->
+    <div class="text-center mb-10">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Horarios de Cursado 📚
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base max-w-2xl mx-auto">
+            Consulta y descarga las grillas horarias oficiales por carrera y año lectivo.
+        </p>
+    </div>
+
+    <!-- BUSCADOR RÁPIDO EN VIVO -->
+    <div class="max-w-md mx-auto mb-10">
+        <div class="relative">
+            <input type="text" id="busqueda-carrera" onkeyup="filtrarCarreras()" 
+                   placeholder="Buscar carrera o área..." 
+                   class="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-2xl shadow-sm text-slate-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+            <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- GRILLA DE CARRERAS -->
+    {% if carreras %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="contenedor-carreras">
+            {% for carrera in carreras %}
+                <div class="tarjeta-carrera bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 rounded-2xl p-6 shadow-lg flex flex-col justify-between hover:shadow-xl transition-all duration-300 group"
+                     data-nombre="{{ carrera.nombre|lower }}" 
+                     data-area="{{ carrera.area|lower }}">
+                    
+                    <div>
+                        <!-- ÁREA Y BADGE DE DURACIÓN -->
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="inline-block bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-semibold text-xs px-3 py-1 rounded-full border border-cyan-500/20">
+                                {{ carrera.area }}
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">
+                                {{ carrera.duracion }}
+                            </span>
+                        </div>
+
+                        <!-- NOMBRE DE CARRERA -->
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white group-hover:text-cyan-400 transition leading-snug mb-4">
+                            {{ carrera.nombre }}
+                        </h3>
+                    </div>
+
+                    <!-- BOTONES DE HORARIOS POR AÑO -->
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50">
+                        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">
+                            Horarios Disponibles:
+                        </p>
+
+                        {% if carrera.horarios.all %}
+                            <div class="grid grid-cols-3 gap-2">
+                                {% for h in carrera.horarios.all %}
+                                    {% if h.enlace_drive or h.archivo_pdf %}
+                                        <a href="{% if h.enlace_drive %}{{ h.enlace_drive }}{% else %}{{ h.archivo_pdf.url }}{% endif %}" 
+                                           target="_blank" 
+                                           rel="noopener noreferrer"
+                                           class="flex flex-col items-center justify-center py-2 px-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl font-bold text-xs shadow-sm hover:shadow transition transform hover:-translate-y-0.5 text-center">
+                                            <span>{{ h.get_anio_display }}</span>
+                                            {% if h.turno %}
+                                                <span class="text-[10px] font-normal opacity-90 truncate max-w-full px-1">
+                                                    {{ h.turno }}
+                                                </span>
+                                            {% endif %}
+                                        </a>
+                                    {% else %}
+                                        <div class="py-2 px-1 bg-slate-100 dark:bg-slate-700/50 text-slate-400 rounded-xl text-xs font-semibold text-center border border-dashed border-slate-300 dark:border-slate-600 cursor-not-allowed">
+                                            {{ h.get_anio_display }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl text-center border border-dashed border-slate-200 dark:border-slate-700">
+                                <span class="text-xs text-slate-400 font-medium">
+                                    ⏳ Horarios aún no publicados
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+            <p class="text-slate-500 dark:text-slate-400 font-medium text-base">
+                No hay carreras registradas en el sistema actualmente.
+            </p>
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- SCRIPT DE FILTRADO DINÁMICO EN VIVO -->
+<script>
+    function filtrarCarreras() {
+        const query = document.getElementById('busqueda-carrera').value.toLowerCase().trim();
+        const tarjetas = document.querySelectorAll('.tarjeta-carrera');
+
+        tarjetas.forEach(tarjeta => {
+            const nombre = tarjeta.getAttribute('data-nombre');
+            const area = tarjeta.getAttribute('data-area');
+
+            if (nombre.includes(query) || area.includes(query)) {
+                tarjeta.style.display = 'flex';
+            } else {
+                tarjeta.style.display = 'none';
+            }
+        });
+    }
+</script>
+{% endblock %}

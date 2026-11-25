@@ -1,0 +1,29 @@
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de entorno y credenciales
+.env
+*.env
+credentials.json
+
+# Base de datos local
+db.sqlite3
+
+# Archivos subidos y temporales
+media/
+temp_uploads/
+
+# Control de versiones e infraestructura local
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md

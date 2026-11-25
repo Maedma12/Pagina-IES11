@@ -1,8 +1,14 @@
 .env
+credentials.json
 
-# Ignorar archivos subidos por usuarios y temporales
+# Entorno virtual
+.venv/
+venv/
+
+# Ignorar archivos subidos por usuarios, temporales y estáticos compilados
 media/
 temp_uploads/
+staticfiles/
 
 # Ignorar base de datos local
 db.sqlite3
@@ -10,4 +16,4 @@ db.sqlite3
 # Ignorar caché de Python
 __pycache__/
 */__pycache__/
-*.pyc
+*.py[cod]

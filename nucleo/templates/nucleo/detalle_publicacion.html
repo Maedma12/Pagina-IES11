@@ -1,0 +1,92 @@
+{% extends 'nucleo/base.html' %}
+{% load static %}
+
+{% block title %}{{ publicacion.titulo }} - IES N°11{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    
+    <!-- Botón para volver -->
+    <div>
+        <a href="javascript:history.back()" class="inline-flex items-center space-x-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:underline">
+            <span>←</span>
+            <span>Volver a Novedades</span>
+        </a>
+    </div>
+
+    <!-- Tarjeta Principal (Estilo Horizontal Dual: Imagen Completa + Texto) -->
+    <article class="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden transition-colors duration-300">
+        <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
+            
+            <!-- Columna Izquierda: Imagen adaptable -->
+            {% if publicacion.imagen %}
+                <div class="lg:col-span-6 bg-slate-950/90 dark:bg-slate-950 flex items-center justify-center p-6 min-h-[400px] lg:min-h-[550px]">
+                    <img src="{{ publicacion.imagen.url }}" alt="{{ publicacion.titulo }}" class="w-full h-auto max-h-[600px] object-contain rounded-xl shadow-lg">
+                </div>
+            {% else %}
+                <div class="lg:col-span-6 bg-gradient-to-br from-blue-900 to-slate-900 flex items-center justify-center p-12 min-h-[350px]">
+                    <span class="text-7xl">📰</span>
+                </div>
+            {% endif %}
+
+            <!-- Columna Derecha: Información y Contenido de la Novedad -->
+            <div class="lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
+                
+                <div class="space-y-4">
+                    <!-- Fecha -->
+                    <div class="flex items-center space-x-2 text-xs font-semibold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/50 px-3 py-1.5 rounded-lg w-fit border border-cyan-200 dark:border-cyan-900">
+                        <span>📅</span>
+                        <span>{{ publicacion.fecha_creacion|date:"d/m/Y H:i" }}</span>
+                    </div>
+
+                    <!-- Título -->
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                        {{ publicacion.titulo }}
+                    </h1>
+
+                    <!-- Contenido detallado -->
+                    <div class="text-slate-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-line border-t border-slate-100 dark:border-slate-800 pt-4">
+                        {{ publicacion.contenido }}
+                    </div>
+                </div>
+
+                <!-- Pie de tarjeta con botón de Compartir Universal -->
+                <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                    <span class="text-xs text-slate-400 dark:text-gray-500 font-medium">
+                        Instituto de Educación Superior N°11 - Jujuy
+                    </span>
+                    
+                    <!-- Botón Universal de Compartir -->
+                    <button onclick="compartirNoticia()" class="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shadow cursor-pointer">
+                        <span>📤 Compartir Novedad</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </article>
+
+</div>
+
+<!-- Script para la función de compartir nativa del dispositivo -->
+<script>
+function compartirNoticia() {
+    if (navigator.share) {
+        navigator.share({
+            title: "{{ publicacion.titulo|escapejs }}",
+            text: "¡Mirá esta novedad del IES N°11!",
+            url: window.location.href,
+        })
+        .catch((error) => console.log('Error al compartir', error));
+    } else {
+        // Fallback: Si el navegador no soporta Web Share API, copia el enlace al portapapeles
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('¡Enlace copiado al portapapeles!');
+        }).catch(() => {
+            alert('No se pudo copiar el enlace.');
+        });
+    }
+}
+</script>
+{% endblock %}

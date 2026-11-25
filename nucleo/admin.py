@@ -1,23 +1,34 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Usuario, Carrera, EspacioCurricular, Calificacion, RegistroVisita, Publicacion
+from .models import (
+    Usuario,
+    Carrera,
+    Publicacion,
+    SliderItem,
+    EventoCalendario,
+    Horario,
+)
 
-# Personalizamos el administrador para el modelo Usuario
+
 class CustomUserAdmin(UserAdmin):
     model = Usuario
-    # Agregamos los campos personalizados a las vistas de edición en el admin
     fieldsets = UserAdmin.fieldsets + (
         ('Información Institucional', {'fields': ('rol', 'dni', 'nombre', 'apellido')}),
     )
-    # Agregamos los campos al formulario de creación de usuario
     add_fieldsets = UserAdmin.add_fieldsets + (
         ('Información Institucional', {'fields': ('rol', 'dni', 'nombre', 'apellido', 'email')}),
     )
 
-# Registramos los modelos con sus debidas configuraciones
+
+@admin.register(Horario)
+class HorarioAdmin(admin.ModelAdmin):
+    list_display = ('carrera', 'anio', 'turno', 'enlace_drive')
+    list_filter = ('carrera__area', 'anio')
+    search_fields = ('carrera__nombre',)
+
+
 admin.site.register(Usuario, CustomUserAdmin)
 admin.site.register(Carrera)
-admin.site.register(EspacioCurricular)
-admin.site.register(Calificacion)
-admin.site.register(RegistroVisita)
-admin.site.register(Publicacion) # Opcional: si también quieres gestionarlas desde /admin/
+admin.site.register(Publicacion)
+admin.site.register(SliderItem)
+admin.site.register(EventoCalendario)

@@ -4,52 +4,168 @@
 {% block title %}Institucional - IES N°11{% endblock %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto space-y-8 mb-12">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
     
-    <!-- Hero Institucional con la Foto -->
-    <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-2xl border border-blue-900/40 shadow-xl overflow-hidden">
-        
-        <div class="w-full h-64 md:h-80 bg-slate-900 relative flex items-center justify-center border-b border-blue-900/50">
-            <!-- Imagen cargada desde la carpeta static -->
-            <img src="{% static 'nucleo/img/foto_ies.avif' %}" alt="Sede IES N°11" class="w-full h-full object-cover opacity-50 hover:opacity-70 transition duration-500">
-            
-            <!-- Overlay degradado para integrar la foto con el fondo oscuro del sitio -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
-        </div>
-
-        <div class="p-8 md:p-12 text-center relative z-10 -mt-16">
-            <div class="w-20 h-20 bg-gradient-to-br from-blue-900 to-cyan-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-[#0f172a]">
-                <span class="text-3xl">🏛️</span>
+    <!-- ENCABEZADO SOLEMNE COMPACTO TIPO DOSSIER -->
+    <div class="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xl transition-colors duration-300">
+        <div class="w-full h-48 sm:h-64 md:h-72 overflow-hidden relative">
+            <img src="{% static 'nucleo/img/foto_ies.avif' %}" alt="Instituto de Educación Superior N° 11" class="w-full h-full object-cover brightness-[0.75]">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex items-end p-6 md:p-8">
+                <div class="text-white">
+                    <h1 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight drop-shadow-md">
+                        Instituto de Educación Superior N° 11
+                    </h1>
+                </div>
             </div>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-cyan-400 mb-4">Instituto de Educación Superior N°11</h2>
-            <p class="text-gray-300 leading-relaxed text-sm md:text-base max-w-3xl mx-auto">
-                Somos una institución pública de educación superior con sede en Alvear 1151, San Salvador de Jujuy. Estamos comprometidos con la formación de profesionales técnicos altamente capacitados para responder a las demandas del sistema productivo, de salud y turístico de nuestra región.
+        </div>
+
+        <div class="p-6 md:p-8 max-w-3xl mx-auto text-center">
+            <p class="text-slate-700 dark:text-gray-200 text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                Institución pública dependiente de la Dirección de Educación Superior del Ministerio de Educación de la Provincia de Jujuy. Formación técnica superior para el desarrollo productivo y social de la región.
             </p>
         </div>
     </div>
 
-    <!-- Misión y Vinculación (Grid Responsive) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-slate-900/70 p-8 rounded-2xl border border-slate-700 shadow-lg hover:border-cyan-500/30 transition duration-300 flex flex-col">
-            <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-3">
-                <span class="bg-slate-800 p-2 rounded-lg text-xl">🎯</span> 
-                <span>Nuestra Misión</span>
-            </h3>
-            <p class="text-sm text-gray-400 leading-relaxed mb-4 flex-grow">
-                Garantizar una educación pública inclusiva y de excelencia. Fomentamos el pensamiento crítico, la innovación tecnológica y el compromiso ético, formando especialistas en áreas críticas como Enfermería, Obstetricia, Desarrollo de Software, Energía Solar y Turismo, adaptándonos constantemente a los cambios del mundo laboral.
-            </p>
-        </div>
+    <!-- DOCUMENTO CONTINUO EDITORIAL (DOSSIER INSTITUCIONAL) -->
+    <article class="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl space-y-12 transition-colors duration-300">
         
-        <div class="bg-slate-900/70 p-8 rounded-2xl border border-slate-700 shadow-lg hover:border-cyan-500/30 transition duration-300 flex flex-col">
-            <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-3">
-                <span class="bg-slate-800 p-2 rounded-lg text-xl">🤝</span> 
-                <span>Vinculación Comunitaria</span>
-            </h3>
-            <p class="text-sm text-gray-400 leading-relaxed flex-grow">
-                Creemos en el aprendizaje a través del contacto real con el entorno. Promovemos activamente las prácticas profesionalizantes mediante convenios directos con instituciones del medio, como el Centro Cultural Lola Mora y el Parque Botánico, asegurando que nuestros estudiantes apliquen sus conocimientos técnicos en el territorio jujeño antes de egresar.
-            </p>
-        </div>
-    </div>
+        <!-- SECCIÓN 1: RESEÑA HISTÓRICA -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-4 border-b border-slate-200 dark:border-slate-700 pb-3">
+                <span class="text-2xl font-black text-blue-600 dark:text-blue-400">01</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Reseña Histórica e Identidad
+                </h2>
+            </div>
+            
+            <div class="text-slate-600 dark:text-gray-300 text-base leading-relaxed space-y-4">
+                <p>
+                    Desde sus inicios, el Instituto de Educación Superior N° 11 trabaja en la construcción de propuestas de formación técnica superior vinculadas con las necesidades sociales, laborales y productivas de la provincia de Jujuy.
+                </p>
+                <p>
+                    El 24 de febrero de 2017, mediante la <strong>Resolución Ministerial N° 4483-E-17</strong>, se estableció la conversión y funcionamiento oficial del IES N° 11 como institución estatal dependiente de la Dirección de Educación Superior del Ministerio de Educación de la Provincia de Jujuy.
+                </p>
+                <p>
+                    En su ciclo lectivo inaugural de 2017, la institución dio inicio a sus actividades con una oferta educativa de 8 carreras técnicas orientadas a sectores clave como salud, desarrollo local, turismo e indumentaria, consolidando un espacio de crecimiento profesional para la juventud y la comunidad jujeña.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border-l-4 border-blue-600 text-xs sm:text-sm text-slate-600 dark:text-gray-300 space-y-1">
+                <p><strong>Sede Central:</strong> Alvear 1151, San Salvador de Jujuy, Argentina.</p>
+                <p><strong>Teléfono / Contacto:</strong> 3886014588</p>
+                <p><strong>Nivel Formativo:</strong> Tecnicaturas Superiores Oficiales de 3 años de duración.</p>
+            </div>
+        </section>
+
+        <hr class="border-slate-200 dark:border-slate-800">
+
+        <!-- SECCIÓN 2: MISIÓN Y VISIÓN -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-4 border-b border-slate-200 dark:border-slate-700 pb-3">
+                <span class="text-2xl font-black text-blue-600 dark:text-blue-400">02</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Misión y Visión
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                        Nuestra Misión
+                    </h3>
+                    <p class="text-slate-600 dark:text-gray-300 text-sm leading-relaxed">
+                        Formar profesionales técnicos de nivel superior competentes, mediante una educación de calidad, integral e inclusiva, que contribuya al desarrollo socioproductivo de Jujuy y de la región, articulando conocimientos, habilidades y prácticas profesionalizantes.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                        Nuestra Visión
+                    </h3>
+                    <p class="text-slate-600 dark:text-gray-300 text-sm leading-relaxed">
+                        Consolidarnos como una institución de Educación Superior innovadora, emprendedora y en crecimiento, reconocida por la calidad y pertinencia de sus propuestas formativas vinculadas con los cambios tecnológicos, sociales y productivos del entorno.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-200 dark:border-slate-800">
+
+        <!-- SECCIÓN 3: VALORES INSTITUCIONALES -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-4 border-b border-slate-200 dark:border-slate-700 pb-3">
+                <span class="text-2xl font-black text-blue-600 dark:text-blue-400">03</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Valores Institucionales
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">Integridad</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        Actuar con honestidad, ética y coherencia en el ámbito académico y en el futuro ejercicio profesional.
+                    </p>
+                </div>
+
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">Respeto</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        Reconocer y valorar la diversidad, las ideas y los derechos fundamentales de todas las personas.
+                    </p>
+                </div>
+
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">Responsabilidad</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        Asumir con compromiso las tareas, decisiones y obligaciones propias del aprendizaje y de la función técnica.
+                    </p>
+                </div>
+
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">Compromiso Social</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        Poner los conocimientos y capacidades adquiridas al servicio directo de la comunidad y del desarrollo regional.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-200 dark:border-slate-800">
+
+        <!-- SECCIÓN 4: EQUIPO DE GESTIÓN -->
+        <section class="space-y-6">
+            <div class="flex items-center space-x-4 border-b border-slate-200 dark:border-slate-700 pb-3">
+                <span class="text-2xl font-black text-blue-600 dark:text-blue-400">04</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Equipo de Gestión Institucional
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                <div class="border-l-2 border-blue-600 pl-4 py-1">
+                    <p class="font-bold text-slate-900 dark:text-white text-base">Prof. Silvia Roxana Adaro</p>
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wider">Rectora</p>
+                </div>
+
+                <div class="border-l-2 border-cyan-600 pl-4 py-1">
+                    <p class="font-bold text-slate-900 dark:text-white text-base">Prof. Noelia Fabiana Vaquera</p>
+                    <p class="text-xs text-cyan-600 dark:text-cyan-400 font-semibold uppercase tracking-wider">Vicerrectora</p>
+                </div>
+
+                <div class="border-l-2 border-emerald-600 pl-4 py-1">
+                    <p class="font-bold text-slate-900 dark:text-white text-base">Prof. Marta Magdalena Mamaní</p>
+                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">Secretaria Administrativa</p>
+                </div>
+
+                <div class="border-l-2 border-indigo-600 pl-4 py-1">
+                    <p class="font-bold text-slate-900 dark:text-white text-base">Prof. Santiago Milton García</p>
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider">Secretario Académico</p>
+                </div>
+            </div>
+        </section>
+
+    </article>
 
 </div>
 {% endblock %}

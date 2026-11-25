@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}IES N°11{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'nucleo/img/Logo_Ies11.svg' %}">
+<link rel="shortcut icon" href="{% static 'nucleo/img/Logo_Ies11.svg' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -17,46 +20,107 @@
                 }
             }
         }
+
+        // Script para evitar parpadeos de color al cargar la página
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-ies-dark text-gray-100 flex flex-col min-h-screen font-sans">
+<body class="bg-sky-100 text-slate-800 dark:bg-ies-dark dark:text-gray-100 flex flex-col min-h-screen font-sans transition-colors duration-300 overflow-x-hidden">
 
-    <!-- HEADER INSTITUCIONAL / GESTIÓN COMPARTIDO -->
+    <!-- HEADER INSTITUCIONAL (RESPONSIVE) -->
     <header class="bg-gradient-to-r from-[#0a1128] via-[#1e293b] to-[#0f172a] shadow-xl border-b border-blue-900/40 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center p-4">
             
-            <!-- LOGO SVG DESDE CARPETA STATIC CON ENLACE AL INICIO -->
-            <a href="{% url 'inicio' %}" class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-12 h-12 flex items-center justify-center transition transform group-hover:scale-105">
-                    <img src="{% static 'nucleo/img/Logo_Ies11.svg' %}" alt="Logo IES 11" class="w-12 h-12 object-contain drop-shadow-md">
+            <!-- LOGO SVG E IDENTIDAD -->
+            <a href="{% url 'inicio' %}" class="flex items-center space-x-3 group cursor-pointer flex-shrink-0">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition transform group-hover:scale-105 flex-shrink-0">
+                    <img src="{% static 'nucleo/img/Logo_Ies11.svg' %}" alt="Logo IES 11" class="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-md">
                 </div>
-                <div>
-                    <h1 class="text-lg font-bold tracking-wider text-white group-hover:text-cyan-300 transition">IES N°11</h1>
-                    <p class="text-xs text-cyan-400 tracking-widest uppercase">Instituto de Educación Superior N°11</p>
+                <div class="flex-shrink-0">
+                    <h1 class="text-base sm:text-lg font-bold tracking-wider text-white group-hover:text-cyan-300 transition leading-none">IES N°11</h1>
+                    <p class="hidden sm:block text-xs text-cyan-400 tracking-widest uppercase mt-1">Instituto de Educación Superior N°11</p>
                 </div>
             </a>
 
-            <!-- NAVEGACIÓN -->
-            <nav class="hidden md:flex space-x-6 text-sm font-medium items-center">
-                <a href="{% url 'inicio' %}" class="text-gray-300 hover:text-cyan-300 transition">Inicio</a>
-                <a href="{% url 'institucional' %}" class="text-gray-300 hover:text-cyan-300 transition">Institucional</a>
-                <a href="{% url 'carreras' %}" class="text-gray-300 hover:text-cyan-300 transition">Carreras</a>
+            <!-- NAVEGACIÓN DESKTOP (XL+) -->
+            <nav class="hidden xl:flex space-x-5 text-sm font-medium items-center">
+                <a href="{% url 'inicio' %}" 
+                   class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'inicio' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                   Inicio
+                </a>
+
+                <a href="{% url 'institucional' %}" 
+                   class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'institucional' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                   Institucional
+                </a>
+
+                <a href="{% url 'carreras' %}" 
+                   class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'carreras' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                   Carreras
+                </a>
+
+                <a href="{% url 'horarios' %}" 
+                   class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'horarios' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                   Horarios
+                </a>
+
+                <a href="{% url 'calendario' %}" 
+                   class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'calendario' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                   Calendario
+                </a>
                 
-                <!-- LÓGICA DE USUARIOS -->
                 {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                        <!-- Visible solo para Administradores -->
-                        <a href="{% url 'gestion' %}" class="text-amber-400 hover:text-amber-300 transition font-bold border-b-2 border-amber-400 pb-1">Gestión</a>
-                    {% else %}
-                        <!-- Visible solo para Alumnos (usuarios normales) -->
-                        <a href="{% url 'alumno' %}" class="text-emerald-400 hover:text-emerald-300 transition font-bold border-b-2 border-emerald-400 pb-1">Mi Panel</a>
+                    {% if user.is_staff or user.rol == 'admin' %}
+                        <a href="{% url 'gestion' %}" 
+                           class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'gestion' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                           Administración
+                        </a>
+                    {% endif %}
+
+                    {% if user.is_staff or user.rol == 'cs_datos' or user.rol == 'analista' %}
+                        <a href="{% url 'estadisticas' %}" 
+                           class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'estadisticas' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                           Datos Estadísticos
+                        </a>
+                    {% endif %}
+
+                    {% if user.rol == 'alumno' %}
+                        <a href="{% url 'alumno' %}" 
+                           class="text-white pb-1 transition border-b-2 {% if request.resolver_match.url_name == 'alumno' %}border-cyan-400 font-bold{% else %}border-transparent hover:text-cyan-300 hover:border-cyan-300/50{% endif %}">
+                           Alumno
+                        </a>
                     {% endif %}
                 {% endif %}
             </nav>
 
-            <!-- ACCIONES DE USUARIO -->
-            <div class="flex items-center space-x-3">
+            <!-- ACCIONES DESKTOP: SWITCH Y LOGIN/LOGOUT (XL+) -->
+            <div class="hidden xl:flex items-center space-x-4 flex-shrink-0">
+                <!-- Interruptor Deslizante Sol / Luna -->
+                <button id="theme-toggle" onclick="toggleTheme()" type="button" 
+                        class="relative inline-flex h-8 w-16 flex-shrink-0 cursor-pointer rounded-full border-2 border-cyan-500/40 bg-slate-800 transition-colors duration-300 ease-in-out focus:outline-none" 
+                        role="switch" aria-checked="false" title="Cambiar modo de color">
+                    
+                    <span class="sr-only">Cambiar tema</span>
+                    <span id="theme-toggle-thumb" 
+                          class="pointer-events-none relative inline-block h-7 w-7 transform rounded-full bg-gradient-to-r from-amber-400 to-orange-500 shadow-lg ring-0 transition duration-300 ease-in-out translate-x-0 flex items-center justify-center">
+                        
+                        <!-- Ícono Sol -->
+                        <svg id="sun-icon" class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"></path>
+                        </svg>
+                        
+                        <!-- Ícono Luna -->
+                        <svg id="moon-icon" class="hidden w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </span>
+                </button>
+
                 {% if user.is_authenticated %}
                     <form action="{% url 'logout' %}" method="post" class="inline">
                         {% csrf_token %}
@@ -66,6 +130,81 @@
                     <a href="{% url 'login' %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-xs shadow-md transition">Ingresar</a>
                 {% endif %}
             </div>
+
+            <!-- BOTÓN HAMBURGUESA (VISIBILITY: HASTA XL) -->
+            <div class="flex xl:hidden items-center flex-shrink-0">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" type="button" class="p-2 rounded-xl text-cyan-400 hover:text-white hover:bg-slate-800 focus:outline-none transition">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- DESPLEGABLE MÓVIL Y PANTALLAS MEDIANAS (HASTA XL) -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-[#0d1424] border-t border-slate-800 px-4 pt-3 pb-6 space-y-4">
+            
+            <nav class="flex flex-col space-y-2 text-sm font-semibold">
+                <a href="{% url 'inicio' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'inicio' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                    🏠 Inicio
+                </a>
+                <a href="{% url 'institucional' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'institucional' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                    🏛️ Institucional
+                </a>
+                <a href="{% url 'carreras' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'carreras' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                    🎓 Carreras
+                </a>
+                <a href="{% url 'horarios' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'horarios' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                    🕒 Horarios de Cursado
+                </a>
+                <a href="{% url 'calendario' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'calendario' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                    📅 Calendario Académico
+                </a>
+
+                {% if user.is_authenticated %}
+                    {% if user.is_staff or user.rol == 'admin' %}
+                        <a href="{% url 'gestion' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'gestion' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                            ⚙️ Administración
+                        </a>
+                    {% endif %}
+
+                    {% if user.is_staff or user.rol == 'cs_datos' or user.rol == 'analista' %}
+                        <a href="{% url 'estadisticas' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'estadisticas' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                            📊 Datos Estadísticos
+                        </a>
+                    {% endif %}
+
+                    {% if user.rol == 'alumno' %}
+                        <a href="{% url 'alumno' %}" class="px-3 py-2 rounded-xl transition {% if request.resolver_match.url_name == 'alumno' %}bg-cyan-500/20 text-cyan-300 font-bold{% else %}text-slate-300 hover:bg-slate-800{% endif %}">
+                            👤 Portal Alumno
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </nav>
+
+            <div class="pt-3 border-t border-slate-800 space-y-3">
+                <!-- Selector de Modo Oscuro Móvil -->
+                <button onclick="toggleTheme()" type="button" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-800/90 text-slate-200 text-xs font-semibold hover:bg-slate-700 transition">
+                    <span>Tema de color</span>
+                    <span id="theme-status-mobile" class="text-cyan-400 font-bold">Modo Claro ☀️</span>
+                </button>
+
+                <!-- Botón Login / Logout Móvil -->
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" class="w-full">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full text-center py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-md">
+                            Cerrar Sesión
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="block w-full text-center py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shadow-md">
+                        Iniciar Sesión
+                    </a>
+                {% endif %}
+            </div>
+
         </div>
     </header>
 
@@ -75,20 +214,47 @@
         {% endblock %}
     </main>
 
-    <!-- FOOTER INSTITUCIONAL COMPARTIDO -->
+    <!-- FOOTER INSTITUCIONAL -->
     <footer class="bg-[#090d16] text-gray-400 py-10 mt-16 border-t border-slate-800">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div>
                 <h4 class="font-bold text-white text-base mb-3">Contacto Institucional</h4>
                 <p class="text-sm">📞 Tel: 3886014588</p>
-                <p class="text-sm">📍 San Salvador de Jujuy - Argentina</p>
+                <button onclick="openMapModal()" class="text-sm text-gray-400 hover:text-cyan-300 transition text-center md:text-left flex items-center justify-center md:justify-start space-x-1 mt-1 group w-full md:w-auto">
+                    <span>📍 Alvear 1145, San Salvador de Jujuy</span>
+                    <span class="text-xs text-cyan-400 underline group-hover:text-cyan-200">(Ver mapa)</span>
+                </button>
             </div>
             <div>
                 <h4 class="font-bold text-white text-base mb-3">Redes Oficiales</h4>
                 <div class="flex flex-col space-y-2 text-sm">
-                    <p class="text-gray-400">Facebook</p>
-                    <p class="text-gray-400">Instagram</p>
-                    <p class="text-gray-400">YouTube</p>
+                    <a href="https://whatsapp.com/channel/0029Vb9oyxE1iUxh3w6Yc003" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start space-x-2 text-gray-400 hover:text-cyan-300 transition group">
+                        <svg class="w-5 h-5 fill-current text-emerald-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        </svg>
+                        <span>Canal de WhatsApp</span>
+                    </a>
+
+                    <a href="https://www.facebook.com/profile.php?id=100066551990089#" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start space-x-2 text-gray-400 hover:text-cyan-300 transition group">
+                        <svg class="w-5 h-5 fill-current text-blue-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/ies11jujuy/?hl=es" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start space-x-2 text-gray-400 hover:text-cyan-300 transition group">
+                        <svg class="w-5 h-5 fill-current text-pink-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+
+                    <a href="https://www.youtube.com/@ies11jujuy60/videos" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center md:justify-start space-x-2 text-gray-400 hover:text-cyan-300 transition group">
+                        <svg class="w-5 h-5 fill-current text-red-600 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        <span>YouTube</span>
+                    </a>
                 </div>
             </div>
             <div>
@@ -98,6 +264,148 @@
             </div>
         </div>
     </footer>
+
+    <!-- MODAL POPUP PARA GOOGLE MAPS -->
+    <div id="map-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 transition-all duration-300">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+            <div class="bg-slate-800 px-5 py-3 flex justify-between items-center border-b border-slate-700">
+                <h3 class="text-white font-bold text-base flex items-center space-x-2">
+                    <span>📍 Ubicación Institucional - IES N°11</span>
+                </h3>
+                <button onclick="closeMapModal()" class="text-gray-400 hover:text-white text-2xl font-bold px-2 focus:outline-none transition">&times;</button>
+            </div>
+            <div class="p-4 flex-grow">
+                <div class="w-full h-80 sm:h-96 rounded-xl overflow-hidden border border-slate-700">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3641.521235198424!2d-65.3039!3d-24.1852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941b0f3e23218683%3A0x6b6c0b3c66289b5!2sAlvear%201145%2C%20Y4600%20San%20Salvador%20de%20Jujuy%2C%20Jujuy!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="mt-3 text-xs text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+                    <span>Alvear 1145, San Salvador de Jujuy, Jujuy</span>
+                    <a href="https://maps.google.com/?q=Alvear+1145,+San+Salvador+de+Jujuy" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline font-semibold">Abrir en aplicación de Maps ↗</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WIDGET FLOTANTE DEL CHATBOT -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <div id="chat-modal" class="hidden absolute bottom-16 right-0 w-[380px] sm:w-[420px] h-[580px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all transform scale-95 opacity-0 duration-300">
+            <div class="bg-gradient-to-r from-blue-900 via-slate-900 to-slate-900 px-4 py-3 flex justify-between items-center border-b border-slate-700">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <h3 class="text-white font-semibold text-sm">Asistente Virtual IES N°11</h3>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-white text-xl font-bold px-2 focus:outline-none transition">&times;</button>
+            </div>
+            <div class="flex-grow w-full bg-white">
+                <iframe
+                    src="https://chatbot-ies11.streamlit.app/?embed=true" 
+                    allow="microphone; camera; autoplay; clipboard-write" 
+                    class="border-0"
+                    style="
+                        width: 118%; 
+                        height: 118%; 
+                        transform: scale(0.85); 
+                        transform-origin: top left;
+                    ">
+                </iframe>
+            </div>
+        </div>
+
+        <button onclick="toggleChat()" id="chat-toggle-btn" class="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 focus:outline-none group border border-blue-400/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-sm font-medium ml-0 group-hover:ml-2">Asistente IA</span>
+        </button>
+    </div>
+
+    <!-- SCRIPTS DE CONTROL -->
+    <script>
+        function openMapModal() {
+            const modal = document.getElementById('map-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeMapModal() {
+            const modal = document.getElementById('map-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleChat() {
+            const modal = document.getElementById('chat-modal');
+            const isHidden = modal.classList.contains('hidden');
+            
+            if (isHidden) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('scale-95', 'opacity-0');
+                    modal.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                modal.classList.remove('scale-100', 'opacity-100');
+                modal.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function updateSwitchUI() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const thumb = document.getElementById('theme-toggle-thumb');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            const mobileStatus = document.getElementById('theme-status-mobile');
+
+            if (thumb && sunIcon && moonIcon) {
+                if (isDark) {
+                    thumb.classList.remove('translate-x-0', 'from-amber-400', 'to-orange-500');
+                    thumb.classList.add('translate-x-8', 'from-cyan-500', 'to-blue-600');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    thumb.classList.remove('translate-x-8', 'from-cyan-500', 'to-blue-600');
+                    thumb.classList.add('translate-x-0', 'from-amber-400', 'to-orange-500');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                }
+            }
+
+            if (mobileStatus) {
+                mobileStatus.innerHTML = isDark ? 'Modo Oscuro 🌙' : 'Modo Claro ☀️';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateSwitchUI();
+        }
+
+        document.addEventListener('DOMContentLoaded', updateSwitchUI);
+    </script>
 
 </body>
 </html>

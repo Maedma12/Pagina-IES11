@@ -5,38 +5,44 @@
 {% block content %}
     <!-- TÍTULO PRINCIPAL Y BARRA DE PESTAÑAS (TABS) -->
     <div class="mb-8">
-        <h2 class="text-2xl font-extrabold text-white mb-6">Panel de Administración Institucional</h2>
+        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-6 transition-colors duration-300">Panel de Administración Institucional</h2>
         
         <!-- PESTAÑAS DE NAVEGACIÓN INTERNA -->
-        <div class="flex flex-wrap gap-2 border-b border-slate-700 pb-4">
-            <a href="?tab=carreras" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'carreras' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-gray-400 hover:text-white bg-slate-800/50 border border-slate-700/50 {% endif %}">
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-700 pb-4 transition-colors duration-300">
+            <a href="?tab=carreras" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'carreras' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-slate-600 hover:text-slate-900 bg-white border border-slate-200 dark:text-gray-400 dark:hover:text-white dark:bg-slate-800/50 dark:border-slate-700/50 {% endif %}">
                 🎓 Administración de Carreras
             </a>
-            <a href="?tab=publicaciones" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'publicaciones' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-gray-400 hover:text-white bg-slate-800/50 border border-slate-700/50 {% endif %}">
+            <a href="?tab=calendario" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'calendario' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-slate-600 hover:text-slate-900 bg-white border border-slate-200 dark:text-gray-400 dark:hover:text-white dark:bg-slate-800/50 dark:border-slate-700/50 {% endif %}">
+                📅 Calendario Académico
+            </a>
+            <a href="?tab=publicaciones" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'publicaciones' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-slate-600 hover:text-slate-900 bg-white border border-slate-200 dark:text-gray-400 dark:hover:text-white dark:bg-slate-800/50 dark:border-slate-700/50 {% endif %}">
                 📰 Publicaciones de la Página
             </a>
-            <a href="?tab=alumnos" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'alumnos' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-gray-400 hover:text-white bg-slate-800/50 border border-slate-700/50 {% endif %}">
+            <a href="?tab=slider" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'slider' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-slate-600 hover:text-slate-900 bg-white border border-slate-200 dark:text-gray-400 dark:hover:text-white dark:bg-slate-800/50 dark:border-slate-700/50 {% endif %}">
+                🖼️ Slider de Portada
+            </a>
+            <a href="?tab=alumnos" class="px-5 py-2.5 rounded-xl font-semibold text-sm transition {% if tab == 'alumnos' %} bg-blue-600 text-white shadow-lg shadow-blue-900/40 {% else %} text-slate-600 hover:text-slate-900 bg-white border border-slate-200 dark:text-gray-400 dark:hover:text-white dark:bg-slate-800/50 dark:border-slate-700/50 {% endif %}">
                 👥 Administración de Alumnos
             </a>
         </div>
     </div>
 
     <!-- ================================================= -->
-    <!-- PESTAÑA 1: ADMINISTRACIÓN DE CARRERAS             -->
+    <!-- PESTAÑA 1: ADMINISTRACIÓN DE CARRERAS            -->
     <!-- ================================================= -->
     {% if tab == 'carreras' %}
         <!-- ESTADÍSTICAS RÁPIDAS -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <p class="text-xs text-gray-400 uppercase tracking-wider">Carreras Registradas</p>
-                <h3 class="text-3xl font-extrabold text-cyan-400 mt-2">{{ total_carreras }}</h3>
+            <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <p class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">Carreras Registradas</p>
+                <h3 class="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400 mt-2">{{ total_carreras }}</h3>
             </div>
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <p class="text-xs text-gray-400 uppercase tracking-wider">Estado del Sistema</p>
-                <h3 class="text-xl font-bold text-emerald-400 mt-2">Activo y Seguro</h3>
+            <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <p class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">Estado del Sistema</p>
+                <h3 class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mt-2">Activo y Seguro</h3>
             </div>
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <p class="text-xs text-gray-400 uppercase tracking-wider">Acceso Avanzado</p>
+            <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <p class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">Acceso Avanzado</p>
                 <a href="/admin/" target="_blank" class="inline-block mt-2 text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold transition">Django Admin &rarr;</a>
             </div>
         </div>
@@ -44,31 +50,31 @@
         <!-- SECCIÓN DE DOBLE OPCIÓN DE CARGA -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
             <!-- OPCIÓN A: CARGA MANUAL -->
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+            <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
                     <span>✍️</span> <span>Carga Manual de Carrera</span>
                 </h3>
                 <form method="POST" enctype="multipart/form-data" class="space-y-4">
                     {% csrf_token %}
                     <input type="hidden" name="tipo_carga" value="manual">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Nombre de la Carrera</label>
-                        <input type="text" name="nombre" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Ej: Tecnicatura en Data Science">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Nombre de la Carrera</label>
+                        <input type="text" name="nombre" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Tecnicatura Superior en Ciencia de Datos">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Área Académica</label>
-                        <input type="text" name="area" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Ej: Salud, Tecnología, Humanidades">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Área Académica</label>
+                        <input type="text" name="area" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Salud, Tecnología">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Duración y Resolución</label>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Duración y Resolución</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <input type="text" name="duracion" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Ej: 3 años">
-                            <input type="text" name="resolucion" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Ej: Res. 123/25">
+                            <input type="text" name="duracion" class="bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: 3 años">
+                            <input type="text" name="resolucion" class="bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Resolucion N°...">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">PDF del Plan de Estudios (Opcional)</label>
-                        <input type="file" name="archivo_pdf" class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">PDF del Plan de Estudios (Opcional)</label>
+                        <input type="file" name="archivo_pdf" class="w-full text-xs text-slate-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500">
                     </div>
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg">
                         Guardar Manualmente
@@ -77,19 +83,19 @@
             </div>
 
             <!-- OPCIÓN B: CARGA INTELIGENTE MEDIANTE PDF E IA -->
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-cyan-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-cyan-300 mb-4 flex items-center space-x-2">
+            <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-cyan-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-cyan-700 dark:text-cyan-300 mb-4 flex items-center space-x-2">
                     <span>🤖</span> <span>Carga Asistida por IA (Subir PDF)</span>
                 </h3>
                 <form method="POST" enctype="multipart/form-data" class="space-y-4">
                     {% csrf_token %}
                     <input type="hidden" name="tipo_carga" value="ia_pdf">
-                    <p class="text-xs text-gray-300 leading-relaxed">
+                    <p class="text-xs text-slate-600 dark:text-gray-300 leading-relaxed">
                         Sube el diseño curricular en PDF. La IA extraerá los datos automáticamente (incluyendo el Área temática) para que puedas revisarlos antes del registro definitivo.
                     </p>
                     <div>
-                        <label class="block text-xs font-semibold text-cyan-400 mb-1">Seleccionar Archivo PDF del Plan</label>
-                        <input type="file" name="pdf_ia" required class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cyan-600 file:text-white hover:file:bg-cyan-500">
+                        <label class="block text-xs font-semibold text-cyan-700 dark:text-cyan-400 mb-1">Seleccionar Archivo PDF del Plan</label>
+                        <input type="file" name="pdf_ia" required class="w-full text-xs text-slate-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cyan-600 file:text-white hover:file:bg-cyan-500">
                     </div>
                     <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg shadow-cyan-900/30">
                         Analizar PDF con IA y Previsualizar
@@ -99,14 +105,14 @@
         </div>
 
         <!-- TABLA DE CARRERAS ACTUALES -->
-        <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-4 md:p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-            <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+        <div class="bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-4 md:p-6 rounded-2xl transition-colors duration-300">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
                 <span>📚</span> <span>Catálogo de Carreras Activas</span>
             </h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse text-sm min-w-[700px]">
                     <thead>
-                        <tr class="border-b border-slate-700 text-cyan-400">
+                        <tr class="border-b border-slate-200 dark:border-slate-700 text-cyan-700 dark:text-cyan-400">
                             <th class="py-3 px-2 font-semibold">Carrera</th>
                             <th class="py-3 px-2 font-semibold">Área</th>
                             <th class="py-3 px-2 font-semibold">Duración</th>
@@ -115,28 +121,28 @@
                             <th class="py-3 px-2 font-semibold text-center">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 text-gray-300">
+                    <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-700 dark:text-gray-300">
                         {% for c in carreras %}
-                        <tr class="hover:bg-slate-800/40 transition">
-                            <td class="py-3 px-2 font-medium text-white">{{ c.nombre }}</td>
-                            <td class="py-3 px-2"><span class="bg-slate-800 text-gray-300 px-2 py-1 rounded text-xs border border-slate-700">{{ c.area }}</span></td>
+                        <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/40 transition">
+                            <td class="py-3 px-2 font-medium text-slate-900 dark:text-white">{{ c.nombre }}</td>
+                            <td class="py-3 px-2"><span class="bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-700 px-2 py-1 rounded text-xs">{{ c.area }}</span></td>
                             <td class="py-3 px-2">{{ c.duracion }}</td>
-                            <td class="py-3 px-2 text-cyan-300">{{ c.resolucion }}</td>
+                            <td class="py-3 px-2 text-cyan-700 dark:text-cyan-300 font-semibold">{{ c.resolucion }}</td>
                             <td class="py-3 px-2">
                                 {% if c.archivo_pdf %}
-                                    <a href="{{ c.archivo_pdf.url }}" target="_blank" class="text-xs bg-cyan-900/60 text-cyan-300 px-2.5 py-1 rounded-md border border-cyan-700 hover:bg-cyan-800 transition inline-block">Ver PDF</a>
+                                    <a href="{{ c.archivo_pdf.url }}" target="_blank" class="text-xs bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-900/60 dark:text-cyan-300 dark:border-cyan-700 hover:bg-cyan-200 dark:hover:bg-cyan-800 px-2.5 py-1 rounded-md transition inline-block font-semibold">Ver PDF</a>
                                 {% else %}
-                                    <span class="text-xs text-gray-500 italic">Sin PDF</span>
+                                    <span class="text-xs text-slate-400 dark:text-gray-500 italic">Sin PDF</span>
                                 {% endif %}
                             </td>
                             <td class="py-3 px-2 text-center space-x-1 sm:space-x-2 whitespace-nowrap">
-                                <a href="{% url 'editar_carrera' c.id %}" class="inline-block text-xs bg-amber-600/80 hover:bg-amber-500 text-white px-2.5 py-1 rounded-md transition shadow">Editar</a>
-                                <a href="{% url 'eliminar_carrera' c.id %}" class="inline-block text-xs bg-red-600/80 hover:bg-red-500 text-white px-2.5 py-1 rounded-md transition shadow" onclick="return confirm('¿Estás seguro de eliminar esta carrera?');">Eliminar</a>
+                                <a href="{% url 'editar_carrera' c.id %}" class="inline-block text-xs bg-amber-600 hover:bg-amber-500 text-white px-2.5 py-1 rounded-md transition shadow">Editar</a>
+                                <a href="{% url 'eliminar_carrera' c.id %}" class="inline-block text-xs bg-red-600 hover:bg-red-500 text-white px-2.5 py-1 rounded-md transition shadow" onclick="return confirm('¿Estás seguro de eliminar esta carrera?');">Eliminar</a>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6" class="text-center py-6 text-gray-500 italic">No hay carreras cargadas todavía. ¡Agregá la primera con cualquiera de las opciones!</td>
+                            <td colspan="6" class="text-center py-6 text-slate-400 dark:text-gray-500 italic">No hay carreras cargadas todavía. ¡Agregá la primera con cualquiera de las opciones!</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -146,54 +152,86 @@
     {% endif %}
 
     <!-- ================================================= -->
-    <!-- PESTAÑA 2: PUBLICACIONES DE LA PÁGINA             -->
+    <!-- PESTAÑA 2: CALENDARIO ACADÉMICO                   -->
     <!-- ================================================= -->
-    {% if tab == 'publicaciones' %}
+    {% if tab == 'calendario' %}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Formulario de Creación de Publicación -->
-            <div class="lg:col-span-5 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-cyan-300 mb-4 flex items-center space-x-2">
-                    <span>📰</span> <span>Nueva Publicación para el Index</span>
+            <!-- Formulario para agregar Fecha al Calendario -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-cyan-700 dark:text-cyan-300 mb-4 flex items-center space-x-2">
+                    <span>📅</span> <span>Agregar Evento al Calendario</span>
                 </h3>
-                <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form method="POST" class="space-y-4">
                     {% csrf_token %}
-                    <input type="hidden" name="tipo_carga" value="publicacion">
+                    <input type="hidden" name="tipo_carga" value="calendario">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Título de la Publicación</label>
-                        <input type="text" name="titulo" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Ej: Inicio de Inscripciones 2026">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Título del Evento</label>
+                        <input type="text" name="titulo" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Receso Escolar de Invierno">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Imagen Ilustrativa (Opcional)</label>
-                        <input type="file" name="imagen" class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Descripción / Detalle (Opcional)</label>
+                        <input type="text" name="descripcion" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Período escolar común - ICL Marzo 2026">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Fecha de Inicio</label>
+                            <input type="date" name="fecha_inicio" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Fecha de Fin (Opcional)</label>
+                            <input type="date" name="fecha_fin" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Contenido / Texto</label>
-                        <textarea name="contenido" rows="5" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400" placeholder="Escribe el detalle de la novedad institucional..."></textarea>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Categoría</label>
+                        <select name="categoria" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                            <option value="Inscripciones">Inscripciones</option>
+                            <option value="Inicio">Inicio de Clases</option>
+                            <option value="Cierre">Cierre / Entrega</option>
+                            <option value="Receso">Receso Escolar</option>
+                            <option value="Finalización">Finalización del Ciclo</option>
+                            <option value="General" selected>General / Otro</option>
+                        </select>
                     </div>
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg">
-                        Publicar en el Index
+                        Guardar Evento en Calendario
                     </button>
                 </form>
             </div>
 
-            <!-- Listado de Publicaciones Existentes -->
-            <div class="lg:col-span-7 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
-                    <span>📋</span> <span>Publicaciones Realizadas</span>
+            <!-- Listado de Eventos del Calendario -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
+                    <span>📋</span> <span>Fechas Cargadas en el Calendario</span>
                 </h3>
-                <div class="space-y-4">
-                    {% for pub in publicaciones %}
-                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <h4 class="font-bold text-white text-sm">{{ pub.titulo }}</h4>
-                                <p class="text-xs text-gray-400 mt-1">{{ pub.fecha_creacion|date:"d/m/Y H:i" }}</p>
+                <div class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                    {% for ev in calendario %}
+                        <div class="bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center transition-colors duration-300">
+                            <div class="flex items-center space-x-3">
+                                <!-- Insignia de fecha o rango -->
+                                <div class="w-16 h-12 bg-blue-900 text-white rounded-xl flex flex-col items-center justify-center shrink-0 text-xs font-bold p-1 text-center">
+                                    {% if ev.fecha_fin %}
+                                        <span class="uppercase text-[8px] text-cyan-300">{{ ev.fecha_inicio|date:"M" }}</span>
+                                        <span class="text-[10px] leading-tight">{{ ev.fecha_inicio|date:"d" }} al {{ ev.fecha_fin|date:"d" }}</span>
+                                    {% else %}
+                                        <span class="uppercase text-[9px] text-cyan-300">{{ ev.fecha_inicio|date:"M" }}</span>
+                                        <span class="text-base leading-none">{{ ev.fecha_inicio|date:"d" }}</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <span class="text-[9px] font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-cyan-300">{{ ev.categoria }}</span>
+                                    <h4 class="font-bold text-slate-900 dark:text-white text-sm mt-0.5">{{ ev.titulo }}</h4>
+                                    {% if ev.descripcion %}
+                                        <p class="text-xs text-slate-500 dark:text-gray-400">{{ ev.descripcion }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
                             <div>
-                                <a href="{% url 'eliminar_publicacion' pub.id %}" onclick="return confirm('¿Seguro que deseas eliminar esta publicación?')" class="bg-red-600/80 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow">Eliminar</a>
+                                <a href="{% url 'eliminar_evento_calendario' ev.id %}" onclick="return confirm('¿Seguro que deseas eliminar esta fecha?')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow">Eliminar</a>
                             </div>
                         </div>
                     {% empty %}
-                        <p class="text-xs text-gray-400 text-center py-6 italic">No hay publicaciones cargadas todavía.</p>
+                        <p class="text-xs text-slate-400 dark:text-gray-400 text-center py-6 italic">No hay fechas registradas en el calendario.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -201,13 +239,154 @@
     {% endif %}
 
     <!-- ================================================= -->
-    <!-- PESTAÑA 3: ADMINISTRACIÓN DE ALUMNOS              -->
+    <!-- PESTAÑA 3: PUBLICACIONES DE LA PÁGINA            -->
+    <!-- ================================================= -->
+    {% if tab == 'publicaciones' %}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Formulario de Creación de Publicación -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-cyan-700 dark:text-cyan-300 mb-4 flex items-center space-x-2">
+                    <span>📰</span> <span>Nueva Publicación para el Inicio</span>
+                </h3>
+                <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="tipo_carga" value="publicacion">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Título de la Publicación</label>
+                        <input type="text" name="titulo" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Inicio de Inscripciones 2026">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Imagen Ilustrativa (Opcional)</label>
+                        <input type="file" name="imagen" class="w-full text-xs text-slate-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Contenido / Texto</label>
+                        <textarea name="contenido" rows="5" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Escribe el detalle de la novedad institucional..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg">
+                        Publicar en el Inicio
+                    </button>
+                </form>
+            </div>
+
+            <!-- Listado de Publicaciones Existentes -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
+                    <span>📋</span> <span>Publicaciones Realizadas</span>
+                </h3>
+                <div class="space-y-4">
+                    {% for pub in publicaciones %}
+                        <div class="bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center transition-colors duration-300">
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-sm">{{ pub.titulo }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-gray-400 mt-1">{{ pub.fecha_creacion|date:"d/m/Y H:i" }}</p>
+                            </div>
+                            <div>
+                                <a href="{% url 'eliminar_publicacion' pub.id %}" onclick="return confirm('¿Seguro que deseas eliminar esta publicación?')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow">Eliminar</a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-xs text-slate-400 dark:text-gray-400 text-center py-6 italic">No hay publicaciones cargadas todavía.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- ================================================= -->
+    <!-- PESTAÑA 4: GESTIÓN DEL SLIDER DE PORTADA           -->
+    <!-- ================================================= -->
+    {% if tab == 'slider' %}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Formulario para agregar nuevo Slide -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-cyan-700 dark:text-cyan-300 mb-4 flex items-center space-x-2">
+                    <span>🖼️</span> <span>Agregar Placa al Slider</span>
+                </h3>
+                <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="tipo_carga" value="slider">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Título de la Placa</label>
+                        <input type="text" name="titulo" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: ¡Inscripciones Abiertas 2026!">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Subtítulo / Descripción Corta (Opcional)</label>
+                        <input type="text" name="subtitulo" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Ej: Descubre la oferta académica del IES N°11">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Imagen de Fondo (Recomendado 1200x500px)</label>
+                        <input type="file" name="imagen" required class="w-full text-xs text-slate-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Texto del Botón</label>
+                            <input type="text" name="texto_boton" placeholder="Ej: Ver Requisitos" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Orden de Aparición</label>
+                            <input type="number" name="orden" value="1" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Enlace de Destino al hacer clic</label>
+                        <input type="text" name="enlace_boton" placeholder="Ej: https://..." class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-cyan-500">
+                    </div>
+
+                    <!-- Casilla para mostrar u ocultar el logo flotante institucional -->
+                    <div class="flex items-center space-x-2 py-1">
+                        <input type="checkbox" id="mostrar_logo" name="mostrar_logo" checked class="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500">
+                        <label for="mostrar_logo" class="text-xs font-semibold text-slate-700 dark:text-gray-300">
+                            Mostrar logo institucional flotante sobre la imagen
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg">
+                        Guardar y Mostrar en Portada
+                    </button>
+                </form>
+            </div>
+
+            <!-- Listado de Placas Activas -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
+                    <span>🖼️</span> <span>Placas Activas en el Slider</span>
+                </h3>
+                <div class="space-y-4">
+                    {% for slide in sliders %}
+                        <div class="bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-colors duration-300">
+                            <div class="flex items-center space-x-4">
+                                {% if slide.imagen %}
+                                    <img src="{{ slide.imagen.url }}" alt="{{ slide.titulo }}" class="w-20 h-12 object-cover rounded-lg border border-slate-300 dark:border-slate-700">
+                                {% endif %}
+                                <div>
+                                    <span class="text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 px-2 py-0.5 rounded font-bold">Orden: {{ slide.orden }}</span>
+                                    <h4 class="font-bold text-slate-900 dark:text-white text-sm mt-1">{{ slide.titulo }}</h4>
+                                    {% if slide.subtitulo %}
+                                        <p class="text-xs text-slate-500 dark:text-gray-400">{{ slide.subtitulo }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div>
+                                <a href="{% url 'eliminar_slider' slide.id %}" onclick="return confirm('¿Seguro que deseas eliminar esta placa del slider?')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow">Eliminar</a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-xs text-slate-400 dark:text-gray-400 text-center py-6 italic">No hay placas cargadas en el slider. La portada usará la imagen institucional por defecto.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- ================================================= -->
+    <!-- PESTAÑA 5: ADMINISTRACIÓN DE ALUMNOS            -->
     <!-- ================================================= -->
     {% if tab == 'alumnos' %}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- Formulario de Creación de Alumno -->
-            <div class="lg:col-span-5 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-emerald-400 mb-4 flex items-center space-x-2">
+            <div class="lg:col-span-5 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-4 flex items-center space-x-2">
                     <span>👤</span> <span>Registrar Nuevo Alumno</span>
                 </h3>
                 <form method="POST" class="space-y-4">
@@ -215,34 +394,34 @@
                     <input type="hidden" name="tipo_carga" value="alumno">
                     
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Nombre de Usuario / DNI</label>
-                        <input type="text" name="username" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400" placeholder="Ej: 40123456">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Nombre de Usuario / DNI</label>
+                        <input type="text" name="username" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: 40123456">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-1">Nombre</label>
-                            <input type="text" name="nombre" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400" placeholder="Ej: Juan">
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Nombre</label>
+                            <input type="text" name="nombre" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: Juan">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-1">Apellido</label>
-                            <input type="text" name="apellido" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400" placeholder="Ej: Pérez">
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Apellido</label>
+                            <input type="text" name="apellido" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: Pérez">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">DNI</label>
-                        <input type="text" name="dni" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400" placeholder="Ej: 40123456">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">DNI</label>
+                        <input type="text" name="dni" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: 40123456">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Correo Electrónico</label>
-                        <input type="email" name="email" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400" placeholder="alumno@ies11.edu.ar">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Correo Electrónico</label>
+                        <input type="email" name="email" class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500" placeholder="alumno@ies11.edu.ar">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-300 mb-1">Contraseña Inicial</label>
-                        <input type="password" name="password" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-400">
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-gray-300 mb-1">Contraseña Inicial</label>
+                        <input type="password" name="password" required class="w-full bg-slate-50 border border-slate-300 dark:bg-slate-900 dark:border-slate-700 rounded-xl px-3 py-2 text-slate-800 dark:text-white text-sm focus:outline-none focus:border-emerald-500">
                     </div>
 
                     <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-lg">
@@ -252,13 +431,13 @@
             </div>
 
             <!-- Listado y Baja de Alumnos -->
-            <div class="lg:col-span-7 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-900/40 shadow-xl">
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+            <div class="lg:col-span-7 bg-white border border-slate-200 shadow-xl dark:bg-gradient-to-br dark:from-[#1e293b] dark:to-[#0f172a] dark:border-blue-900/40 p-6 rounded-2xl transition-colors duration-300">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
                     <span>👥</span> <span>Alumnos Registrados en el Sistema</span>
                 </h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-gray-300">
-                        <thead class="bg-slate-900/80 text-emerald-400 uppercase">
+                    <table class="w-full text-left text-xs text-slate-700 dark:text-gray-300">
+                        <thead class="bg-slate-100 text-emerald-700 dark:bg-slate-900/80 dark:text-emerald-400 uppercase font-semibold">
                             <tr>
                                 <th class="py-3 px-3">Usuario / Nombre</th>
                                 <th class="py-3 px-3">DNI</th>
@@ -266,24 +445,24 @@
                                 <th class="py-3 px-3 text-center">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-800">
+                        <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                             {% for alumno in alumnos %}
-                                <tr class="hover:bg-slate-800/40 transition">
-                                    <td class="py-3 px-3 font-semibold text-white">
+                                <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/40 transition">
+                                    <td class="py-3 px-3 font-semibold text-slate-900 dark:text-white">
                                         {{ alumno.username }} 
                                         {% if alumno.nombre or alumno.apellido %}
-                                            <br><span class="text-gray-400 font-normal">{{ alumno.nombre|default:"" }} {{ alumno.apellido|default:"" }}</span>
+                                            <br><span class="text-slate-500 dark:text-gray-400 font-normal">{{ alumno.nombre|default:"" }} {{ alumno.apellido|default:"" }}</span>
                                         {% endif %}
                                     </td>
-                                    <td class="py-3 px-3 text-gray-400">{{ alumno.dni|default:"-" }}</td>
-                                    <td class="py-3 px-3 text-gray-400">{{ alumno.email|default:"-" }}</td>
+                                    <td class="py-3 px-3 text-slate-600 dark:text-gray-400">{{ alumno.dni|default:"-" }}</td>
+                                    <td class="py-3 px-3 text-slate-600 dark:text-gray-400">{{ alumno.email|default:"-" }}</td>
                                     <td class="py-3 px-3 text-center">
-                                        <a href="{% url 'baja_alumno' alumno.id %}" onclick="return confirm('¿Estás seguro de dar de baja a este alumno?')" class="bg-red-600/80 hover:bg-red-600 text-white px-3 py-1 rounded-lg font-semibold transition shadow">Dar de Baja</a>
+                                        <a href="{% url 'baja_alumno' alumno.id %}" onclick="return confirm('¿Estás seguro de dar de baja a este alumno?')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg font-semibold transition shadow">Dar de Baja</a>
                                     </td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="4" class="text-center py-6 text-gray-500 italic">No hay alumnos registrados.</td>
+                                    <td colspan="4" class="text-center py-6 text-slate-400 dark:text-gray-500 italic">No hay alumnos registrados.</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
