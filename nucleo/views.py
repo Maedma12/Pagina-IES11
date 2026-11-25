@@ -491,7 +491,7 @@ def estadisticas_view(request):
         else [0, 0, 0]
     )
 
-    creds_path = os.path.join(settings.BASE_DIR, 'credentials.json')
+    creds_path = '/etc/secrets/credentials.json' if os.path.exists('/etc/secrets/credentials.json') else os.path.join(settings.BASE_DIR, 'credentials.json')
 
     try:
         gc = gspread.service_account(filename=creds_path)
